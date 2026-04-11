@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../model/user.model";
 import bcrypt from 'bcrypt';
 import type { StringValue } from 'ms';
-import { generateToken } from "../config/utils/jwt";
+import { generateToken } from "../utils/jwt";
 
 export async function signup(req: Request, res: Response) {
     try {
