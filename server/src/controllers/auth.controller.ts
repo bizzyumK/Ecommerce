@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { User } from "../model/user.model";
 import bcrypt from 'bcrypt';
+import type { StringValue } from 'ms';
+import { generateToken } from "../config/utils/jwt";
 
 export async function signup(req: Request, res: Response) {
     try {
@@ -19,6 +21,38 @@ export async function signup(req: Request, res: Response) {
             password: hashPassword
         });
         return res.status(201).json({ message: "Sucess", _id: newUser.id });
+    } catch (err) {
+        return res.status(500).json({ message: "Internal server error" })
+    }
+}
+
+export async function login(req: Request, res: Response) {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: "All fields required(email, password" });
+        }
+        const user = await User.findOne({ email: email.toLowerCase() });
+        if (!user) {
+            return res.status(404).json({ message: "User not Found!!" })
+        }
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.status(401).json({ message: "Invalid Password!!" })
+        }
+        const accessToken = generateToken({
+            id: user.id,
+            isAdmin: user.isAdmin,
+            secret_key: process.env.JWT_SECRET!, //! sign tells ts that its' not undefined
+            expires_in: process.env.TOKEN_EXPIRES_IN! as StringValue
+        });
+
+        return res.status(200).json({
+            message: "Login successful",
+            id: user.id,
+            email: user.email,
+            accessToken: accessToken,
+        });
     } catch (err) {
         return res.status(500).json({ message: "Internal server error" })
     }
