@@ -6,7 +6,7 @@ import { generateToken } from "../config/utils/jwt";
 
 export async function signup(req: Request, res: Response) {
     try {
-        const { username, email, password } = req.body;
+        const { username, email, password, isAdmin } = req.body;
         if (!username || !email || !password) {
             return res.status(400).json({ message: "All fields required(name, email, password" });
         }
@@ -18,7 +18,8 @@ export async function signup(req: Request, res: Response) {
         const newUser = await User.create({
             username: username,
             email: email,
-            password: hashPassword
+            password: hashPassword,
+            isAdmin: isAdmin ?? false
         });
         return res.status(201).json({ message: "Sucess", _id: newUser.id });
     } catch (err) {
@@ -56,4 +57,11 @@ export async function login(req: Request, res: Response) {
     } catch (err) {
         return res.status(500).json({ message: "Internal server error" })
     }
+}
+
+export function getMe(req: Request, res: Response) {
+    if (!req.user) {
+        return res.status(403).json({ message: "Log In first" })
+    }
+    return res.status(200).json({ message: `Hello ${req.user.id}` })
 }
