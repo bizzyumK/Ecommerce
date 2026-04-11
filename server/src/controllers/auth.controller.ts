@@ -59,9 +59,10 @@ export async function login(req: Request, res: Response) {
     }
 }
 
-export function getMe(req: Request, res: Response) {
+export async function getMe(req: Request, res: Response) {
     if (!req.user) {
         return res.status(403).json({ message: "Log In first" })
     }
-    return res.status(200).json({ message: `Hello ${req.user.id}` })
+    const user = await User.findById({ _id: req.user.id });
+    return res.status(200).json({ message: `Hello ${user?.username}, Admin? ${user?.isAdmin}` })
 }
