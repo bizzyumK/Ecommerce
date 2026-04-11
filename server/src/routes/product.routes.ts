@@ -3,14 +3,14 @@ import {
     createProduct,
     deleteProduct,
     getAllProduct,
-    getProduct,
+    getProductById,
     updateProduct
 } from '../controllers/product.controller';
 
 const router = express.Router();
 
-router.get('/', getProduct);
-router.get('/:id', getAllProduct);
+router.get('/', getAllProduct);
+router.get('/:id', getProductById);
 router.post('/', createProduct,);
 router.put('/:id', updateProduct,);
 router.delete('/:id', deleteProduct);
