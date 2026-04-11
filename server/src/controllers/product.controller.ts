@@ -1,11 +1,45 @@
 import { Request, Response } from "express";
 import { Product } from "../model/product.model";
 
-export function getProduct(req: Request, res: Response) {
-    res.json({ message: "You" })
+export async function getProduct(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+
+        if (!product) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Product fetched successfully",
+            data: product
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Invalid ID or server error"
+        });
+    }
 }
-export function getAllProduct(req: Request, res: Response) {
+
+export async function getAllProduct(req: Request, res: Response) {
+    try {
+        const products = await Product.find();
+
+        return res.status(200).json({
+            message: "Products fetched successfully",
+            data: products
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    }
 }
+
 export async function createProduct(req: Request, res: Response) {
     try {
         const {
