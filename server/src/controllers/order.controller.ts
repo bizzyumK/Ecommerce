@@ -101,6 +101,36 @@ export async function getAllOrder(req: Request, res: Response) {
     }
 }
 
-export function updateOrder(req: Request, res: Response) {
-    const
+export async function updateOrder(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+        if (!status) {
+            return res.status(400).json({
+                message: "Status is required",
+            });
+        }
+
+        const updatedOrder = await Order.findByIdAndUpdate(
+            id,
+            { status },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({
+                message: "Order not found",
+            });
+        }
+
+        return res.status(200).json({
+            message: "Order updated successfully",
+            data: updatedOrder
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Invalid ID or server error"
+        });
+    }
 }
