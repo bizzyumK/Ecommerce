@@ -51,9 +51,31 @@ export async function createOrder(req: Request, res: Response) {
         });
     }
 }
-export function getUserOrder(req: Request, res: Response) {
+
+export async function getUserOrder(req: Request, res: Response) {
+    try {
+        if (!req.user) {
+            return res.status(403).json({
+                message: "Unauthorized, must login",
+                status: false
+            });
+        }
+        const userId = req.user.id;
+        const orders = await Order.find({ user: userId });
+        return res.status(201).json({
+            message: "Order fetched successfully",
+            data: orders
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Invalkid ID or server error"
+        });
+    }
 }
+
 export function getAllOrder(req: Request, res: Response) {
+
 }
 export function updateOrder(req: Request, res: Response) {
 }
