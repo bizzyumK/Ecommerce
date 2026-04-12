@@ -83,22 +83,24 @@ export async function getUserOrder(req: Request, res: Response) {
 
 export async function getAllOrder(req: Request, res: Response) {
     try {
-        const allOrder = await Order.find().populate('user').populate('items.product');
-        if (!allOrder || allOrder.length == 0) {
-            return res.status(201).json({
-                message: "Order list is Empty",
-            });
-        }
+        const orders = await Order.find()
+            .populate('user')
+            .populate('items.product')
+            .sort({ createdAt: -1 });
+
         return res.status(200).json({
-            message: "All order fetched successfully",
-            orders: allOrder
+            message: orders.length === 0
+                ? "No orders found"
+                : "All orders fetched successfully",
+            data: orders
         });
     } catch (err) {
         return res.status(500).json({
-            message: "Invalid ID or server error"
+            message: "Internal server error"
         });
     }
 }
+
 export function updateOrder(req: Request, res: Response) {
     const
 }
