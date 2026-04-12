@@ -78,13 +78,28 @@ export async function getUserOrder(req: Request, res: Response) {
 
     } catch (err) {
         return res.status(500).json({
-            message: "Invalkid ID or server error"
+            message: "Invalid ID or server error"
         });
     }
 }
 
-export function getAllOrder(req: Request, res: Response) {
-
+export async function getAllOrder(req: Request, res: Response) {
+    try {
+        const allOrder = await Order.find().populate('user').populate('items.product');
+        if (!allOrder || allOrder.length == 0) {
+            return res.status(201).json({
+                message: "Order list is Empty",
+            });
+        }
+        return res.status(200).json({
+            message: "All order fetched successfully",
+            orders: allOrder
+        });
+    } catch (err) {
+        return res.status(500).json({
+            message: "Invalid ID or server error"
+        });
+    }
 }
 export function updateOrder(req: Request, res: Response) {
 }
