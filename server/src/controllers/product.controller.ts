@@ -23,7 +23,6 @@ export async function getProductById(req: Request, res: Response) {
 }
 
 export async function getAllProduct(req: Request, res: Response) {
-                console.log("GET ALL PRODUCTS HIT");
     try {
         const products = await Product.find();
         return res.status(200).json({
