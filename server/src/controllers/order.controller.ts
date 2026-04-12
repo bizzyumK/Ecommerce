@@ -64,6 +64,13 @@ export async function getUserOrder(req: Request, res: Response) {
         const orders = await Order.find({
             user: userId
         }).sort({ createdAt: -1 });
+
+        if (!orders || orders.length == 0) {
+            return res.status(201).json({
+                message: "Order list is Empty",
+            });
+        }
+
         return res.status(201).json({
             message: "Order fetched successfully",
             data: orders
