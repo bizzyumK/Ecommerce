@@ -61,7 +61,9 @@ export async function getUserOrder(req: Request, res: Response) {
             });
         }
         const userId = req.user.id;
-        const orders = await Order.find({ user: userId });
+        const orders = await Order.find({
+            user: userId
+        }).sort({ createdAt: -1 });
         return res.status(201).json({
             message: "Order fetched successfully",
             data: orders
