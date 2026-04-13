@@ -20,7 +20,7 @@ export default function Navbar() {
                     Sajilo Style 🛍️
                 </Link>
                 <div className="flex gap-6 items-center">
-                    <Link to="/" className="hover:text-gray-300">Home</Link>
+                    <Link to="/" className="hover:underline">Home</Link>
                     <Link to="/" className="hover:text-gray-300">Product</Link>
                     <Link to="/cart" className="hover:text-gray-300 relative">
                         Cart
