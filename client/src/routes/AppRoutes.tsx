@@ -7,6 +7,8 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Checkout from "../pages/Checkout";
 import Products from "../pages/Products";
+import About from "../pages/About";
+import Contact from "../pages/Contact";
 
 export default function AppRoutes() {
     return (
@@ -18,6 +20,8 @@ export default function AppRoutes() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
         </Routes>
     );
 }
