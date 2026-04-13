@@ -16,13 +16,10 @@ export default function Navbar() {
     return (
         <nav className="shadow-sm">
             <div className="max-w-[1420px] m-auto px-2 py-4 flex justify-between items-center">
-
-                {/* LEFT - LOGO */}
                 <Link to="/" className="text-xl font-bold">
                     Sajilo Style 🛍️
                 </Link>
 
-                {/* CENTER - NAV LINKS */}
                 <div className="flex gap-6 items-center">
                     <Link to="/" className="hover:underline">Home</Link>
                     <Link to="/products" className="hover:underline">Product</Link>
@@ -30,15 +27,10 @@ export default function Navbar() {
                     <Link to="/contact" className="hover:underline">Contact</Link>
                 </div>
 
-                {/* RIGHT - ACTIONS */}
                 <div className="flex gap-6 items-center">
-
-                    {/* FAVORITES */}
                     <Link to="/favorites" className="hover:text-gray-600">
                         <i className="fa-regular fa-heart"></i>
                     </Link>
-
-                    {/* CART */}
                     <Link to="/cart" className="hover:text-gray-600 relative">
                         <i className="fa-solid fa-cart-plus"></i>
                         {cart.length > 0 && (
@@ -47,8 +39,6 @@ export default function Navbar() {
                             </span>
                         )}
                     </Link>
-
-                    {/* AUTH */}
                     {!user ? (
                         <Link
                             to="/login"
@@ -70,7 +60,6 @@ export default function Navbar() {
                         </>
                     )}
                 </div>
-
             </div>
         </nav>
     );
