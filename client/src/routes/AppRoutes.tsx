@@ -12,6 +12,7 @@ import Contact from "../pages/Contact";
 import GuestRoute from "./GuestRoute";
 import PrivateRoute from "./PrivateRoute";
 import Admin from "../pages/Admin";
+import AdminRoute from "./AdminRoute";
 
 export default function AppRoutes() {
     return (
@@ -25,7 +26,7 @@ export default function AppRoutes() {
             <Route path="/signup" element={<GuestRoute><Signup /></GuestRoute>} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin" element={<PrivateRoute><AdminRoute><Admin /></AdminRoute></PrivateRoute>} />
         </Routes>
     );
 }
