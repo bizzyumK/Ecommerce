@@ -4,7 +4,7 @@ export const createOrder = (data: {
     items: { product: string; quantity: number }[];
     address: string;
 }) => {
-    return API.post("/orders", data);
+    return API.post("/order", data);
 };
 
 export const getMyOrders = () =>
