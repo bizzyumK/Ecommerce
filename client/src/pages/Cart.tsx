@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
+    const navigate = useNavigate();
     const {
         cart,
         addToCart,
@@ -87,7 +89,9 @@ export default function Cart() {
                                 <span>₹{totalPrice}</span>
                             </div>
 
-                            <button className="w-full bg-black text-white py-2 rounded mt-4">
+                            <button
+                                onClick={() => navigate("/checkout")}
+                                className="w-full bg-black text-white py-2 rounded mt-4">
                                 Checkout
                             </button>
                         </div>
