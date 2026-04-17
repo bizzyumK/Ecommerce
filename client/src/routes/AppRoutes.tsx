@@ -9,6 +9,8 @@ import Checkout from "../pages/Checkout";
 import Products from "../pages/Products";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
+import GuestRoute from "./GuestRoute";
+import PrivateRoute from "./PrivateRoute";
 
 export default function AppRoutes() {
     return (
@@ -17,9 +19,9 @@ export default function AppRoutes() {
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
+            <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+            <Route path="/signup" element={<GuestRoute><Signup /></GuestRoute>} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
         </Routes>
