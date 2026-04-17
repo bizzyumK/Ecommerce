@@ -26,7 +26,7 @@ export default function Home() {
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
-            <div className="max-w-[1420px] m-auto">
+            <div className="max-w-355 m-auto">
                 <div className="bg-gray-900 text-white rounded-2xl p-12 mb-10 text-center shadow">
                     <h1 className="text-4xl font-bold mb-4">
                         🔥 New Fashion Drop

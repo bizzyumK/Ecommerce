@@ -46,7 +46,7 @@ export default function Products() {
 
     return (
         <div className="p-6 bg-gray-50">
-            <div className="max-w-[1420px] m-auto">
+            <div className="max-w-355 m-auto">
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex gap-2">
                         {["all", "men", "women"].map((cat) => (
@@ -80,7 +80,7 @@ export default function Products() {
                         </button>
                     </div>
 
-                    <div className="w-[120px]" />
+                    <div className="w-30" />
                 </div>
 
                 {/* 🛍️ PRODUCTS GRID */}

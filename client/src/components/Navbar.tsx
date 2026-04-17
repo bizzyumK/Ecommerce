@@ -15,7 +15,7 @@ export default function Navbar() {
 
     return (
         <nav className="shadow-sm">
-            <div className="max-w-[1420px] m-auto px-2 py-4 flex justify-between items-center">
+            <div className="max-w-355 m-auto px-2 py-4 flex justify-between items-center">
                 <Link to="/" className="text-xl font-bold">
                     Sajilo Style 🛍️
                 </Link>

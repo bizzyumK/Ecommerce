@@ -15,7 +15,7 @@ export default function Cart() {
     return (
 
         <div className="h-[calc(100vh-66px)] bg-gray-100 p-6">
-            <div className="max-w-[1420px] m-auto">
+            <div className="max-w-355 m-auto">
                 <h1 className="text-3xl font-bold mb-6">
                     Your Cart
                 </h1>
