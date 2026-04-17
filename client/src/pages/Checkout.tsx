@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Checkout() {
-    const { cart, totalPrice } = useContext(CartContext);
+    const { cart, totalPrice, clearCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export default function Checkout() {
             await createOrder({ items, address });
 
             alert("Order placed successfully");
-
+            clearCart();
             navigate("/");
         } catch (err: any) {
             console.log(err);
