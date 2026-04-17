@@ -6,7 +6,7 @@ type Props = {
     children: React.ReactNode;
 };
 
-function GuestRoute({ children }: Props) {
+function PrivateRoute({ children }: Props) {
     const { user } = useContext(AuthContext);
 
     if (!user) {
@@ -17,4 +17,4 @@ function GuestRoute({ children }: Props) {
     return children;
 }
 
-export default GuestRoute;
+export default PrivateRoute;
