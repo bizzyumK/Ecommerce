@@ -14,7 +14,7 @@ export default function ProductCard({ product, addToCart }: Props) {
                 src={product.images?.[0] || "https://placehold.co/300x400"}
                 alt={product.name}
                 className="h-48 w-full object-cover rounded-lg cursor-pointer"
-                onClick={() => navigate(`/products`)}
+                onClick={() => navigate(`/product/${product._id}`)}
             />
             <div className="mt-3">
                 <h2 className="font-semibold text-lg line-clamp-1">
