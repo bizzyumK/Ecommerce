@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }: any) => {
         setUser({
             id: data.id,
             email: data.email,
+            username: data.username,
             isAdmin: data.isAdmin,
         });
     };
