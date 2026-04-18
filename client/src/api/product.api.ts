@@ -7,8 +7,8 @@ export const getProductById = (id: string) =>
 
 export const createProduct = () => API.post("/product");
 
-export const updateProduct = (id: string) =>
-    API.put(`/product/${id}`);
+export const updateProduct = (id: string, data: object) =>
+    API.put(`/product/${id}`, data);
 
 export const deleteProduct = (id: string) =>
     API.delete(`/product/${id}`);
