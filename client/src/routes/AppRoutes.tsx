@@ -13,6 +13,7 @@ import GuestRoute from "./GuestRoute";
 import PrivateRoute from "./PrivateRoute";
 import Admin from "../pages/Admin";
 import AdminRoute from "./AdminRoute";
+import MyOrder from "../pages/MyOrder";
 
 export default function AppRoutes() {
     return (
@@ -27,6 +28,7 @@ export default function AppRoutes() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={<PrivateRoute><AdminRoute><Admin /></AdminRoute></PrivateRoute>} />
+            <Route path="/my-orders" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
         </Routes>
     );
 }
