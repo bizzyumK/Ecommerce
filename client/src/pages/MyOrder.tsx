@@ -61,7 +61,7 @@ const MyOrder = () => {
                                         >
                                             <div>
                                                 <p className="font-medium">
-                                                    {item.product.name|| "Product"}
+                                                    {item.product?.name || "Product"}
                                                 </p>
                                                 <p className="text-sm text-gray-500">
                                                     Qty: {item.quantity}
