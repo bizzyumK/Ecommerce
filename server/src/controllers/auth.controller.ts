@@ -52,6 +52,8 @@ export async function login(req: Request, res: Response) {
             message: "Login successful",
             id: user.id,
             email: user.email,
+            username: user.username,
+            isAdmin: user.isAdmin,
             accessToken: accessToken,
         });
     } catch (err) {
