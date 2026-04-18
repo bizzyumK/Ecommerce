@@ -66,7 +66,8 @@ export async function getUserOrder(req: Request, res: Response) {
         }
         const userId = req.user.id;
         const orders = await Order.find({ user: userId })
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .populate("items.product");
 
         return res.status(200).json({
             message: orders.length === 0
