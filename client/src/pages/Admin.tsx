@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../api/product.api";
+import { deleteProduct, getProducts } from "../api/product.api";
 import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
@@ -19,17 +19,23 @@ const Admin = () => {
         }
     };
 
+    const handleDelete = async (id: string) => {
+        try {
+            await deleteProduct(id);
+            setProducts((prev) => prev.filter((p) => p._id !== id));
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gray-100 p-6">
             <div className="max-w-355 m-auto">
-                {/* HEADER */}
                 <h1 className="text-3xl font-bold mb-6">
                     👑 Admin Panel
                 </h1>
 
                 <div className="grid md:grid-cols-4 gap-6">
-
-                    {/* 📚 SIDEBAR */}
                     <div className="bg-white p-4 rounded-xl shadow h-fit">
                         <h2 className="font-semibold mb-4">Menu</h2>
 
@@ -46,10 +52,7 @@ const Admin = () => {
                         </div>
                     </div>
 
-                    {/* 📦 MAIN CONTENT */}
                     <div className="md:col-span-3 space-y-6">
-
-                        {/* 🔢 STATS */}
                         <div className="grid grid-cols-3 gap-4">
                             <div className="bg-white p-4 rounded-xl shadow text-center">
                                 <p className="text-gray-500 text-sm">Products</p>
@@ -69,7 +72,6 @@ const Admin = () => {
                             </div>
                         </div>
 
-                        {/* 📦 PRODUCT SECTION */}
                         <div className="bg-white p-6 rounded-xl shadow">
 
                             <div className="flex justify-between items-center mb-4">
@@ -85,7 +87,6 @@ const Admin = () => {
                                 </button>
                             </div>
 
-                            {/* PRODUCT LIST */}
                             <div className="space-y-3">
                                 {products.map((product) => (
                                     <div
@@ -109,7 +110,6 @@ const Admin = () => {
                                             </div>
                                         </div>
 
-                                        {/* ACTIONS */}
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={() =>
@@ -120,7 +120,7 @@ const Admin = () => {
                                                 Edit
                                             </button>
 
-                                            <button className="text-red-500 text-sm">
+                                            <button className="text-red-500 text-sm" onClick={() => handleDelete(product._id)}>
                                                 Delete
                                             </button>
                                         </div>
