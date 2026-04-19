@@ -18,25 +18,59 @@ import EditProduct from "../pages/EditProduct";
 import AddProduct from "../pages/AddProduct";
 import AdminOrders from "../pages/AdminOrder";
 import AdminProducts from "../pages/AdminProduct";
+import AdminLayout from "../layouts/AdminLayout";
 
 export default function AppRoutes() {
     return (
         <Routes>
+            {/*Public routes */}
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<PrivateRoute><Checkout /></PrivateRoute>} />
-            <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
-            <Route path="/signup" element={<GuestRoute><Signup /></GuestRoute>} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<PrivateRoute><AdminRoute><Admin /></AdminRoute></PrivateRoute>} />
-            <Route path="/my-orders" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
-            <Route path="/admin/edit/:id" element={<PrivateRoute><AdminRoute><EditProduct /></AdminRoute></PrivateRoute>} />
-            <Route path="/admin/add-product" element={<PrivateRoute><AdminRoute><AddProduct /></AdminRoute></PrivateRoute>} />
-            <Route path="/admin/orders" element={<PrivateRoute> <AdminRoute> <AdminOrders /> </AdminRoute> </PrivateRoute>} />
-            <Route path="/admin/products" element={<PrivateRoute> <AdminRoute> <AdminProducts /> </AdminRoute> </PrivateRoute>} />
+
+            {/*User routes */}
+            <Route
+                path="/cart"
+                element={<PrivateRoute><Cart /></PrivateRoute>}
+            />
+            <Route
+                path="/checkout"
+                element={<PrivateRoute><Checkout /></PrivateRoute>}
+            />
+            <Route
+                path="/my-orders"
+                element={<PrivateRoute><MyOrder /></PrivateRoute>}
+            />
+
+            {/*Auth routes */}
+            <Route
+                path="/login"
+                element={<GuestRoute><Login /></GuestRoute>}
+            />
+            <Route
+                path="/signup"
+                element={<GuestRoute><Signup /></GuestRoute>}
+            />
+
+            {/*Admin routes with layout*/}
+            <Route
+                path="/admin"
+                element={
+                    <PrivateRoute>
+                        <AdminRoute>
+                            <AdminLayout />
+                        </AdminRoute>
+                    </PrivateRoute>
+                }
+            >
+                <Route index element={<Admin />} />
+                <Route path="products" element={<AdminProducts />} />
+                <Route path="orders" element={<AdminOrders />} />
+                <Route path="edit/:id" element={<EditProduct />} />
+                <Route path="add-product" element={<AddProduct />} />
+            </Route>
         </Routes>
     );
 }
