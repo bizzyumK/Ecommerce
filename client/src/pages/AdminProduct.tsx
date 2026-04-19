@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 export default function AdminProducts() {
     const [products, setProducts] = useState<any[]>([]);
     const [search, setSearch] = useState("");
-    const [query, setQuery] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,13 +31,8 @@ export default function AdminProducts() {
         }
     };
 
-    const handleSearch = (e: any) => {
-        e.preventDefault();
-        setQuery(search.toLowerCase());
-    };
-
     const filteredProducts = products.filter((p) =>
-        p.name.toLowerCase().includes(query)
+        p.name.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
@@ -58,21 +52,15 @@ export default function AdminProducts() {
                     </button>
                 </div>
 
-                <form
-                    onSubmit={handleSearch}
-                    className="flex gap-2 mb-6 max-w-md"
-                >
+                <div className="flex gap-2 mb-6 max-w-md">
                     <input
                         type="text"
                         placeholder="Search product..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="flex-1 border p-2 rounded-lg"
+                        className="flex-1 p-2 rounded-lg bg-white shadow outline-teal-500"
                     />
-                    <button className="bg-black text-white px-4 rounded-lg">
-                        Search
-                    </button>
-                </form>
+                </div>
 
                 <div className="bg-white rounded-xl shadow overflow-x-auto">
                     <table className="w-full text-left">
