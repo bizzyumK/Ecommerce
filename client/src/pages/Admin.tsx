@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { deleteProduct, getProducts } from "../api/product.api";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getProducts } from "../api/product.api";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Admin = () => {
     const [products, setProducts] = useState<any[]>([]);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         fetchProducts();
@@ -19,119 +20,80 @@ const Admin = () => {
         }
     };
 
-    const handleDelete = async (id: string) => {
-        try {
-            await deleteProduct(id);
-            setProducts((prev) => prev.filter((p) => p._id !== id));
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
-            <div className="max-w-355 m-auto">
-                <h1 className="text-3xl font-bold mb-6">
-                    👑 Admin Panel
+        <div className="min-h-screen bg-gray-100 flex">
+            <div className="w-64 bg-white shadow-md p-6 flex flex-col gap-6">
+                <h1 className="text-2xl font-bold">
+                    👑 Admin
                 </h1>
 
-                <div className="grid md:grid-cols-4 gap-6">
-                    <div className="bg-white p-4 rounded-xl shadow h-fit">
-                        <h2 className="font-semibold mb-4">Menu</h2>
+                <div className="flex flex-col gap-2 text-sm">
 
-                        <div className="flex flex-col gap-3 text-sm">
-                            <button className="text-left hover:text-black text-gray-600">
-                                📦 Products
-                            </button>
-                            <button onClick={() => navigate("/admin/orders")}>
-                                📑 Orders
-                            </button>
-                            <button className="text-left hover:text-black text-gray-600">
-                                📊 Dashboard
-                            </button>
-                        </div>
+                    <button
+                        onClick={() => navigate("/admin/products")}
+                        className={`text-left px-3 py-2 rounded-lg transition ${location.pathname === "/admin/products"
+                            ? "bg-black text-white"
+                            : "hover:bg-gray-100 text-gray-600"
+                            }`}
+                    >
+                        📦 Products
+                    </button>
+
+                    <button
+                        onClick={() => navigate("/admin/orders")}
+                        className={`text-left px-3 py-2 rounded-lg transition ${location.pathname === "/admin/orders"
+                            ? "bg-black text-white"
+                            : "hover:bg-gray-100 text-gray-600"
+                            }`}
+                    >
+                        📑 Orders
+                    </button>
+                </div>
+            </div>
+
+            <div className="flex-1 p-8">
+
+                <h1 className="text-3xl font-bold mb-6">
+                    Dashboard
+                </h1>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+                        <p className="text-gray-500 text-sm mb-2">
+                            📦 Products
+                        </p>
+                        <h2 className="text-2xl font-bold">
+                            {products.length}
+                        </h2>
                     </div>
-
-                    <div className="md:col-span-3 space-y-6">
-                        <div className="grid grid-cols-3 gap-4">
-                            <div className="bg-white p-4 rounded-xl shadow text-center">
-                                <p className="text-gray-500 text-sm">Products</p>
-                                <h2 className="text-xl font-bold">
-                                    {products.length}
-                                </h2>
-                            </div>
-
-                            <div className="bg-white p-4 rounded-xl shadow text-center">
-                                <p className="text-gray-500 text-sm">Orders</p>
-                                <h2 className="text-xl font-bold">--</h2>
-                            </div>
-
-                            <div className="bg-white p-4 rounded-xl shadow text-center">
-                                <p className="text-gray-500 text-sm">Revenue</p>
-                                <h2 className="text-xl font-bold">₹--</h2>
-                            </div>
-                        </div>
-
-                        <div className="bg-white p-6 rounded-xl shadow">
-
-                            <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-semibold">
-                                    Products
-                                </h2>
-
-                                <button
-                                    onClick={() => navigate("/admin/add-product")}
-                                    className="bg-black text-white px-4 py-2 rounded"
-                                >
-                                    + Add Product
-                                </button>
-                            </div>
-
-                            <div className="space-y-3">
-                                {products.map((product) => (
-                                    <div
-                                        key={product._id}
-                                        className="flex items-center justify-between border p-3 rounded-lg"
-                                    >
-                                        <div className="flex items-center gap-4">
-
-                                            <img
-                                                src={product.images?.[0]}
-                                                className="w-12 h-12 object-cover rounded"
-                                            />
-
-                                            <div>
-                                                <p className="font-medium">
-                                                    {product.name}
-                                                </p>
-                                                <p className="text-sm text-gray-500">
-                                                    ₹{product.price}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex gap-2">
-                                            <button
-                                                onClick={() =>
-                                                    navigate(`/admin/edit/${product._id}`)
-                                                }
-                                                className="text-blue-500 text-sm"
-                                            >
-                                                Edit
-                                            </button>
-
-                                            <button className="text-red-500 text-sm" onClick={() => handleDelete(product._id)}>
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                        </div>
-
+                    <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+                        <p className="text-gray-500 text-sm mb-2">
+                            📑 Orders
+                        </p>
+                        <h2 className="text-2xl font-bold">
+                            --
+                        </h2>
+                    </div>
+                    <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition">
+                        <p className="text-gray-500 text-sm mb-2">
+                            💰 Revenue
+                        </p>
+                        <h2 className="text-2xl font-bold">
+                            ₹--
+                        </h2>
                     </div>
                 </div>
+
+                <div className="mt-8 bg-white p-6 rounded-2xl shadow">
+                    <h2 className="text-xl font-semibold mb-2">
+                        Welcome back 👋
+                    </h2>
+                    <p className="text-gray-500 text-sm">
+                        Manage your store using the sidebar. Track products,
+                        monitor orders, and keep everything running smoothly.
+                    </p>
+                </div>
+
             </div>
         </div>
     );
