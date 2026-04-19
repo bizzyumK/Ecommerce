@@ -9,3 +9,11 @@ export const createOrder = (data: {
 
 export const getMyOrders = () =>
     API.get("/order/my-orders");
+
+export const getAllOrders = () => {
+    return API.get("/order");
+};
+
+export const updateOrderStatus = (id: string, status: string) => {
+    return API.put(`/order/${id}`, { status });
+};
