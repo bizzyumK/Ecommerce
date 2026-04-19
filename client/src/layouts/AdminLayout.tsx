@@ -7,9 +7,9 @@ export default function AdminLayout() {
     return (
         <div className="min-h-screen bg-gray-100 flex">
             <div className="w-64 bg-white shadow-md p-6 flex flex-col gap-6">
-                <h1 className="text-2xl font-bold">
+                <h1 className="text-2xl font-bold text-center">
+                    Admin Panel
                 </h1>
-
                 <div className="flex flex-col gap-2 text-sm">
                     <button
                         onClick={() => navigate("/admin")}
