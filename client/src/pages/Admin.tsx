@@ -43,7 +43,7 @@ const Admin = () => {
                             <button className="text-left hover:text-black text-gray-600">
                                 📦 Products
                             </button>
-                            <button className="text-left hover:text-black text-gray-600">
+                            <button onClick={() => navigate("/admin/orders")}>
                                 📑 Orders
                             </button>
                             <button className="text-left hover:text-black text-gray-600">
