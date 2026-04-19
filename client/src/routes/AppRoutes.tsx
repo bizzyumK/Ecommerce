@@ -17,6 +17,7 @@ import MyOrder from "../pages/MyOrder";
 import EditProduct from "../pages/EditProduct";
 import AddProduct from "../pages/AddProduct";
 import AdminOrders from "../pages/AdminOrder";
+import AdminProducts from "../pages/AdminProduct";
 
 export default function AppRoutes() {
     return (
@@ -34,9 +35,8 @@ export default function AppRoutes() {
             <Route path="/my-orders" element={<PrivateRoute><MyOrder /></PrivateRoute>} />
             <Route path="/admin/edit/:id" element={<PrivateRoute><AdminRoute><EditProduct /></AdminRoute></PrivateRoute>} />
             <Route path="/admin/add-product" element={<PrivateRoute><AdminRoute><AddProduct /></AdminRoute></PrivateRoute>} />
-            <Route path="/admin/orders" element={<PrivateRoute> <AdminRoute> <AdminOrders /> </AdminRoute> </PrivateRoute>
-            }
-            />
+            <Route path="/admin/orders" element={<PrivateRoute> <AdminRoute> <AdminOrders /> </AdminRoute> </PrivateRoute>} />
+            <Route path="/admin/products" element={<PrivateRoute> <AdminRoute> <AdminProducts /> </AdminRoute> </PrivateRoute>} />
         </Routes>
     );
 }
