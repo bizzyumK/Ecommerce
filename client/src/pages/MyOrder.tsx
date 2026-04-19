@@ -48,6 +48,12 @@ const MyOrder = () => {
                                         <p className="text-sm text-gray-500">
                                             Status
                                         </p>
+                                        <div className={`rounded-full w-3 h-3 mx-2 inline-block ${order.status === 'pending'
+                                            ? "bg-yellow-500"
+                                            : order.status === "shipped"
+                                                ? "bg-blue-400"
+                                                : "bg-green-400"
+                                            }`} ></div>
                                         <span className="font-medium capitalize">
                                             {order.status}
                                         </span>
