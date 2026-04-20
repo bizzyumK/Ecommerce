@@ -40,66 +40,87 @@ export default function Checkout() {
         }
     };
 
+    if (cart.length === 0) {
+        return (
+            <div className="bg-gray-50 min-h-screen py-8 md:py-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center py-20">
+                        <div className="text-6xl mb-4">🛒</div>
+                        <p className="text-gray-500 text-lg">Your cart is empty</p>
+                        <button
+                            onClick={() => navigate("/products")}
+                            className="mt-6 bg-teal-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-teal-700 transition"
+                        >
+                            Continue Shopping
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="min-h-screen h-[calc(100vh-66px)] bg-gray-100 p-6">
-            <div className="max-w-355 m-auto">
-
-                <h1 className="text-3xl font-bold mb-6">
-                    🧾 Checkout
+        <div className="bg-gray-50 min-h-screen py-8 md:py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+                    Checkout
                 </h1>
-
-                <div className="grid md:grid-cols-2 gap-6">
-
-                    {/* 🏠 ADDRESS */}
-                    <div className="bg-white p-6 rounded-xl shadow">
-                        <h2 className="text-xl font-semibold mb-4">
+                <div className="grid lg:grid-cols-2 gap-8">
+                    <div className="bg-white rounded-2xl shadow-md p-6">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6">
                             Shipping Address
                         </h2>
-
                         <textarea
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             placeholder="Enter your full address..."
-                            className="w-full border p-3 rounded-md h-32"
+                            className="w-full border-2 border-gray-300 rounded-xl p-4 h-36 focus:border-teal-500 focus:outline-none transition"
                         />
                     </div>
-
-                    {/* 💰 SUMMARY */}
-                    <div className="bg-white p-6 rounded-xl shadow">
-
-                        <h2 className="text-xl font-semibold mb-4">
+                    <div className="bg-white rounded-2xl shadow-md p-6">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-6">
                             Order Summary
                         </h2>
+                        <div className="space-y-3 max-h-96 overflow-y-auto mb-6">
+                            {cart.map((item: any) => (
+                                <div
+                                    key={item._id}
+                                    className="flex justify-between items-center py-2 border-b border-gray-100"
+                                >
+                                    <div className="flex-1">
+                                        <p className="font-medium text-gray-800">
+                                            {item.name}
+                                        </p>
+                                        <p className="text-sm text-gray-500">
+                                            Qty: {item.quantity}
+                                            {item.selectedSize && ` | Size: ${item.selectedSize}`}
+                                        </p>
+                                    </div>
+                                    <p className="font-semibold text-gray-900">
+                                        ₹{(item.price * item.quantity).toLocaleString()}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
 
-                        {cart.map((item: any) => (
-                            <div
-                                key={item._id}
-                                className="flex justify-between mb-2 text-sm"
-                            >
-                                <span>
-                                    {item.name} x {item.quantity}
+                        <div className="border-t-2 border-gray-200 pt-4">
+                            <div className="flex justify-between items-center">
+                                <span className="text-lg font-semibold text-gray-900">
+                                    Total
                                 </span>
-                                <span>
-                                    ₹{item.price * item.quantity}
+                                <span className="text-2xl font-bold text-teal-600">
+                                    ₹{totalPrice.toLocaleString()}
                                 </span>
                             </div>
-                        ))}
-
-                        <hr className="my-3" />
-
-                        <div className="flex justify-between font-bold">
-                            <span>Total</span>
-                            <span>₹{totalPrice}</span>
                         </div>
 
                         <button
                             onClick={handleCheckout}
-                            className="w-full bg-black text-white py-2 rounded mt-4"
+                            className="w-full bg-teal-600 text-white py-3 rounded-xl font-semibold hover:bg-teal-700 transition transform hover:scale-[1.02] mt-6"
                         >
                             Place Order
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>

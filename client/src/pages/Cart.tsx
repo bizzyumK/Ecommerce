@@ -13,89 +13,96 @@ export default function Cart() {
     } = useContext(CartContext);
 
     return (
-
-        <div className="h-[calc(100vh-66px)] bg-gray-100 p-6">
-            <div className="max-w-355 m-auto">
-                <h1 className="text-3xl font-bold mb-6">
+        <div className="bg-gray-50 min-h-screen py-8 md:py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
                     Your Cart
                 </h1>
-
                 {cart.length === 0 ? (
-                    <div className="text-center text-gray-500 mt-20">
-                        Your cart is empty 🥲
+                    <div className="text-center py-20">
+                        <p className="text-gray-500 text-lg">Your cart is empty</p>
+                        <button
+                            onClick={() => navigate("/products")}
+                            className="mt-6 bg-teal-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-teal-700 transition"
+                        >
+                            Continue Shopping
+                        </button>
                     </div>
                 ) : (
-                    <div className="grid md:grid-cols-3 gap-6">
-                        <div className="md:col-span-2 space-y-4">
-
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2 space-y-4">
                             {cart.map((item: any) => (
                                 <div
                                     key={item._id}
-                                    className="bg-white p-4 rounded-xl shadow flex gap-4 items-center"
+                                    className="bg-white rounded-2xl shadow-md p-4 flex gap-4 items-center hover:shadow-lg transition"
                                 >
                                     <img
-                                        src={item.images?.[0]}
-                                        className="w-20 h-20 object-cover rounded"
+                                        src={item.images?.[0] || "https://placehold.co/100x100"}
+                                        alt={item.name}
+                                        className="w-24 h-24 object-cover rounded-lg"
                                     />
                                     <div className="flex-1">
-                                        <h2 className="font-semibold">
+                                        <h2 className="font-semibold text-lg text-gray-800">
                                             {item.name}
                                         </h2>
-
-                                        <p className="text-gray-500">
-                                            ₹{item.price}
+                                        {item.selectedSize && (
+                                            <p className="text-sm text-gray-500 mt-1">
+                                                Size: {item.selectedSize}
+                                            </p>
+                                        )}
+                                        <p className="text-teal-600 font-bold text-xl mt-1">
+                                            ₹{item.price.toLocaleString()}
                                         </p>
-
-                                        {/* QTY CONTROLS */}
-                                        <div className="flex items-center gap-2 mt-2">
-
+                                        <div className="flex items-center gap-3 mt-3">
                                             <button
                                                 onClick={() => decreaseQty(item._id)}
-                                                className="px-2 bg-gray-200 rounded"
-                                            >
-                                                -
-                                            </button>
-
-                                            <span>{item.quantity}</span>
-
+                                                className="w-8 h-8 border-2 border-gray-300 rounded-lg hover:bg-gray-100 transition font-semibold cursor-pointer"
+                                            > - </button>
+                                            <span className="font-medium min-w-8 text-center">
+                                                {item.quantity}
+                                            </span>
                                             <button
                                                 onClick={() => addToCart(item)}
-                                                className="px-2 bg-gray-200 rounded"
-                                            >
-                                                +
-                                            </button>
+                                                className="w-8 h-8 border-2 border-gray-300 rounded-lg hover:bg-gray-100 transition font-semibold cursor-pointer"
+                                            > + </button>
                                         </div>
                                     </div>
-
-                                    {/* REMOVE */}
                                     <button
                                         onClick={() => removeFromCart(item._id)}
-                                        className="text-red-500"
+                                        className="text-red-500 hover:text-red-700 transition p-2 cursor-pointer"
                                     >
-                                        Remove
+                                        <i className="fa-regular fa-trash-can"></i>
                                     </button>
                                 </div>
                             ))}
                         </div>
+                        <div className="lg:col-span-1">
+                            <div className="bg-white rounded-2xl shadow-md p-6 sticky top-24">
+                                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                                    Order Summary
+                                </h2>
 
-                        <div className="bg-white p-6 rounded-xl shadow h-fit">
+                                <div className="space-y-3 mb-6">
+                                    <div className="flex justify-between text-gray-600">
+                                        <span>Total</span>
+                                        <span>₹{totalPrice.toLocaleString()}</span>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => navigate("/checkout")}
+                                    className="w-full bg-teal-600 text-white py-3 rounded-xl font-semibold hover:bg-teal-700 transition transform hover:scale-[1.02] cursor-pointer"
+                                >
+                                    Proceed to Checkout
+                                </button>
 
-                            <h2 className="text-xl font-bold mb-4">
-                                Order Summary
-                            </h2>
-
-                            <div className="flex justify-between mb-2">
-                                <span>Total</span>
-                                <span>₹{totalPrice}</span>
+                                <button
+                                    onClick={() => navigate("/products")}
+                                    className="w-full mt-3 text-gray-500 py-2 rounded-lg font-medium hover:text-gray-700 transition cursor-pointer"
+                                >
+                                    Continue Shopping
+                                </button>
                             </div>
-
-                            <button
-                                onClick={() => navigate("/checkout")}
-                                className="w-full bg-black text-white py-2 rounded mt-4">
-                                Checkout
-                            </button>
                         </div>
-
                     </div>
                 )}
             </div>
