@@ -24,7 +24,7 @@ export default function Section({
                 </div>
                 <button
                     onClick={onViewMore}
-                    className="group flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium transition"
+                    className="group flex items-center gap-2 text-teal-600 cursor-pointer font-medium transition"
                 >
                     View More
                     <svg

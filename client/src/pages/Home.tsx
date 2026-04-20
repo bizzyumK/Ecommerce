@@ -31,7 +31,7 @@ export default function Home() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6">
                             <div className="inline-block">
-                                <span className="bg-teal-600 text-white text-sm font-semibold px-4 py-2 rounded-full">
+                                <span className="bg-gray-700 text-white text-sm font-semibold px-4 py-2 rounded-full">
                                     New Collection 2026
                                 </span>
                             </div>

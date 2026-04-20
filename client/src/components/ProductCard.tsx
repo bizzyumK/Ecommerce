@@ -16,7 +16,7 @@ export default function ProductCard({ product, addToCart }: Props) {
 
     return (
         <div
-            className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full"
+            className="group relative bg-white rounded-2xl shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
