@@ -51,7 +51,7 @@ export default function Cart() {
                                             </p>
                                         )}
                                         <p className="text-teal-600 font-bold text-xl mt-1">
-                                            ₹{item.price.toLocaleString()}
+                                            Rs {item.price.toLocaleString()}
                                         </p>
                                         <div className="flex items-center gap-3 mt-3">
                                             <button
@@ -85,7 +85,7 @@ export default function Cart() {
                                 <div className="space-y-3 mb-6">
                                     <div className="flex justify-between text-gray-600">
                                         <span>Total</span>
-                                        <span>₹{totalPrice.toLocaleString()}</span>
+                                        <span>Rs {totalPrice.toLocaleString()}</span>
                                     </div>
                                 </div>
                                 <button
