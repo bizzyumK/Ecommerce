@@ -47,7 +47,7 @@ export default function ProductCard({ product, addToCart }: Props) {
                 </div>
 
                 <div className="flex items-center justify-between gap-3 mt-3 pt-2 border-t border-gray-100">
-                    <p className="font-bold text-xl text-gray-900">
+                    <p className="font-bold text-xl text-teal-600">
                         Rs {product.price.toLocaleString()}
                     </p>
 
