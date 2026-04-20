@@ -18,80 +18,79 @@ const MyOrder = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
-            <div className="max-w-355 m-auto">
-                <h1 className="text-3xl font-bold mb-6">
-                    📦 My Orders
+        <div className="bg-gray-50 min-h-screen py-8 md:py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+                    My Orders
                 </h1>
                 {orders.length === 0 ? (
-                    <div className="text-center text-gray-500 mt-20">
-                        You have no orders yet 🥲
+                    <div className="text-center py-20 bg-white rounded-2xl shadow-md">
+                        <p className="text-gray-500 text-lg">You have no orders yet</p>
                     </div>
                 ) : (
                     <div className="space-y-6">
                         {orders.map((order) => (
-                            <div
-                                key={order._id}
-                                className="bg-white p-6 rounded-xl shadow"
-                            >
-                                <div className="flex justify-between mb-4">
-                                    <div>
-                                        <p className="text-sm text-gray-500">
-                                            Order ID
-                                        </p>
-                                        <p className="font-medium">
-                                            {order._id}
-                                        </p>
+                            <div key={order._id} className="bg-white rounded-2xl shadow-md overflow-hidden">
+                                <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                                    <div className="flex flex-wrap justify-between items-center gap-4">
+                                        <div>
+                                            <p className="text-sm text-gray-500">Order ID</p>
+                                            <p className="font-medium text-gray-800">
+                                                {order._id}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-gray-500">Order Date</p>
+                                            <p className="font-medium text-gray-800">
+                                                {new Date(order.createdAt).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-sm text-gray-500">Status</p>
+                                            <div className="flex items-center gap-2">
+                                                <div className={`w-2.5 h-2.5 rounded-full ${order.status === 'pending' ? 'bg-yellow-500' :
+                                                    order.status === 'shipped' ? 'bg-blue-500' :
+                                                        'bg-green-500'
+                                                    }`} />
+                                                <span className="font-medium capitalize text-gray-800">
+                                                    {order.status}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div className="text-right">
-                                        <p className="text-sm text-gray-500">
-                                            Status
-                                        </p>
-                                        <div className={`rounded-full w-3 h-3 mx-2 inline-block ${order.status === 'pending'
-                                            ? "bg-yellow-500"
-                                            : order.status === "shipped"
-                                                ? "bg-blue-400"
-                                                : "bg-green-400"
-                                            }`} ></div>
-                                        <span className="font-medium capitalize">
-                                            {order.status}
+                                </div>
+                                <div className="p-6">
+                                    <div className="space-y-3">
+                                        {order.items.map((item: any, index: number) => (
+                                            <div
+                                                key={index}
+                                                className="flex justify-between items-center py-3 border-b border-gray-100 last:border-0"
+                                            >
+                                                <div className="flex-1">
+                                                    <p className="font-medium text-gray-800">
+                                                        {item.product?.name || "Product"}
+                                                    </p>
+                                                    <p className="text-sm text-gray-500 mt-1">
+                                                        Quantity: {item.quantity}
+                                                    </p>
+                                                </div>
+                                                <p className="font-semibold text-gray-900">
+                                                    ₹{(item.product?.price * item.quantity).toLocaleString()}
+                                                </p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
+                                        <span className="font-semibold text-gray-800">
+                                            Total Amount
+                                        </span>
+                                        <span className="text-xl font-bold text-teal-600">
+                                            ₹{order.totalPrice.toLocaleString()}
                                         </span>
                                     </div>
                                 </div>
-                                <div className="space-y-3">
-                                    {order.items.map((item: any, index: number) => (
-                                        <div
-                                            key={index}
-                                            className="flex justify-between border p-3 rounded-lg"
-                                        >
-                                            <div>
-                                                <p className="font-medium">
-                                                    {item.product?.name || "Product"}
-                                                </p>
-                                                <p className="text-sm text-gray-500">
-                                                    Qty: {item.quantity}
-                                                </p>
-                                            </div>
-
-                                            <p className="font-medium">
-                                                ₹{item.product?.price * item.quantity}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="flex justify-between mt-4 border-t pt-4">
-                                    <span className="font-semibold">
-                                        Total
-                                    </span>
-                                    <span className="font-bold">
-                                        ₹{order.totalPrice}
-                                    </span>
-                                </div>
-
                             </div>
                         ))}
-
                     </div>
                 )}
             </div>
