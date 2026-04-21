@@ -1,11 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
+dotenv.config();//order matters
 import { connectDB } from './config/db';
 import auth from './routes/auth.routes';
 import product from './routes/product.routes';
 import order from './routes/order.routes';
 import cors from 'cors';
-dotenv.config();
 
 const app = express();
 app.use(express.json());
