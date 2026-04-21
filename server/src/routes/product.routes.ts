@@ -8,12 +8,13 @@ import {
 } from '../controllers/product.controller';
 import { verifyToken } from '../middleware/auth.middleware';
 import { isAdmin } from '../middleware/admin.middleware';
+import { upload } from '../middleware/multer.middleware';
 
 const router = express.Router();
 
 router.get('/', getAllProduct);
 router.get('/:id', getProductById);
-router.post('/', verifyToken, isAdmin, createProduct);
+router.post('/', verifyToken, isAdmin, upload.array("images", 5), createProduct);
 router.put('/:id', verifyToken, isAdmin, updateProduct);
 router.delete('/:id', verifyToken, isAdmin, deleteProduct);
 
