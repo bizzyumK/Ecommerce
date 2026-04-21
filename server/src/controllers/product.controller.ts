@@ -38,34 +38,31 @@ export async function getAllProduct(req: Request, res: Response) {
 
 export async function createProduct(req: Request, res: Response) {
     try {
-        const {
-            name,
-            price,
-            description,
-            images,
-            sizes,
-            stock,
-            category
-        } = req.body;
-        if (
-            !name ||
-            price === undefined ||
-            !description ||
-            !images ||
-            !sizes ||
-            stock === undefined ||
-            !category
-        ) {
+        const { name, price, description, sizes, stock, category } = req.body;
+
+        if (!name || price === undefined || !description || !sizes || sizes.length === 0 || stock === undefined || !category) {
             return res.status(400).json({
                 message: "All fields are required",
                 status: false
             });
         }
+        const files = req.files as Express.Multer.File[]
+        if (!files || files.length === 0) {
+            return res.status(400).json({
+                message: "At least one image is required"
+            });
+        }
+
+        const imageUrls = files.map((file) => {
+            return file.path
+        });//get image urls from req.file(multer create it automatically)
+
+
         const productDetail = await Product.create({
             name,
             price,
             description,
-            images,
+            images: imageUrls,
             sizes,
             stock,
             category
@@ -78,10 +75,11 @@ export async function createProduct(req: Request, res: Response) {
 
     } catch (err) {
         return res.status(500).json({
-            message: "Internal server error"
+            message: "Internal server error(Error uploading product)"
         });
     }
 }
+
 export async function updateProduct(req: Request, res: Response) {
     try {
         const { id } = req.params;
