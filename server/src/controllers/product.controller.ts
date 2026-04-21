@@ -46,6 +46,10 @@ export async function createProduct(req: Request, res: Response) {
                 status: false
             });
         }
+        const parseSizeToArray = typeof sizes === "string"
+            ? sizes.split(",").map(s => s.trim())  //remove space such as [x, xl] => [x,xl]
+            : sizes.map((s: string) => s.trim());
+
         const files = req.files as Express.Multer.File[]
         if (!files || files.length === 0) {
             return res.status(400).json({
@@ -63,7 +67,7 @@ export async function createProduct(req: Request, res: Response) {
             price,
             description,
             images: imageUrls,
-            sizes,
+            sizes: parseSizeToArray,
             stock,
             category
         });
