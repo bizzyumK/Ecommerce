@@ -92,15 +92,6 @@ export default function Home() {
                         onViewMore={() => navigate("/products")}
                     />
                 </div>
-
-                <div className="mb-8">
-                    <Section
-                        title="Limited Offers"
-                        products={products}
-                        addToCart={addToCart}
-                        onViewMore={() => navigate("/products")}
-                    />
-                </div>
             </div>
         </div>
     );

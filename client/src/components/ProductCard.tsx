@@ -16,12 +16,12 @@ export default function ProductCard({ product, addToCart }: Props) {
 
     return (
         <div
-            className="group relative bg-white rounded-2xl shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full"
+            className="bg-white rounded-2xl shadow-md transition-all duration-300 overflow-hidden flex flex-col h-full gap-3"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             <div
-                className="relative overflow-hidden bg-gray-100 cursor-pointer shrink-0 rounded-t-lg"
+                className="relative overflow-hidden bg-gray-100 cursor-pointer shrink-0 rounded-t-lg h-[60%]"
                 onClick={handleProductClick}
             >
                 <img
@@ -30,7 +30,7 @@ export default function ProductCard({ product, addToCart }: Props) {
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 />
             </div>
-            <div className="p-4 flex flex-col grow">
+            <div className="p-4 flex flex-col h-full justify-end">
                 <h3
                     className="font-semibold text-gray-800 text-lg mb-1 line-clamp-1 cursor-pointer hover:text-teal-600 transition-colors"
                     onClick={handleProductClick}
