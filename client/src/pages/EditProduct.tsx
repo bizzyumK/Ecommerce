@@ -6,13 +6,15 @@ export default function EditProduct() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState<any>({
+
+    const [images, setImages] = useState<File[]>([]);
+
+    const [form, setForm] = useState({
         name: "",
         price: "",
         description: "",
         category: "",
         stock: "",
-        images: "",
         sizes: ""
     });
 
@@ -24,13 +26,13 @@ export default function EditProduct() {
         try {
             const res = await getProductById(id!);
             const product = res.data.data;
+
             setForm({
                 name: product.name || "",
                 price: product.price || "",
                 description: product.description || "",
                 category: product.category || "",
                 stock: product.stock || "",
-                images: product.images?.join(", ") || "",
                 sizes: product.sizes?.join(", ") || ""
             });
         } catch (err) {
@@ -38,23 +40,41 @@ export default function EditProduct() {
         }
     };
 
-    const handleChange = (e: any) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e: any) => {
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setImages(Array.from(e.target.files));
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const payload = {
-                ...form,
-                price: Number(form.price),
-                stock: Number(form.stock),
-                images: form.images.split(",").map((img: string) => img.trim()),
-                sizes: form.sizes.split(",").map((s: string) => s.trim())
-            };
-            await updateProduct(id!, payload);
+            const formData = new FormData();
+
+            formData.append("name", form.name);
+            formData.append("price", String(form.price));
+            formData.append("description", form.description);
+            formData.append("category", form.category);
+            formData.append("stock", String(form.stock));
+
+            form.sizes.split(",").forEach((s) => {
+                formData.append("sizes", s.trim());
+            });
+
+            images.forEach((img) => {
+                formData.append("images", img);
+            });
+
+            await updateProduct(id!, formData);
+
             navigate("/admin/products");
         } catch (err) {
             console.log(err);
@@ -80,6 +100,7 @@ export default function EditProduct() {
 
             <div className="bg-white rounded-lg shadow p-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
+
                     <input
                         name="name"
                         value={form.name}
@@ -141,10 +162,9 @@ export default function EditProduct() {
                     />
 
                     <input
-                        name="images"
-                        value={form.images}
-                        onChange={handleChange}
-                        placeholder="Image URLs (comma separated)"
+                        type="file"
+                        multiple
+                        onChange={handleImageChange}
                         className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
                     />
 
@@ -156,6 +176,7 @@ export default function EditProduct() {
                         >
                             Cancel
                         </button>
+
                         <button
                             type="submit"
                             disabled={loading}
@@ -164,6 +185,7 @@ export default function EditProduct() {
                             {loading ? "Updating..." : "Update Product"}
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
