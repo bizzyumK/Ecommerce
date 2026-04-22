@@ -37,7 +37,7 @@ export default function Cart() {
                                     className="bg-white rounded-2xl shadow-md p-4 flex gap-4 items-center hover:shadow-lg transition"
                                 >
                                     <img
-                                        src={item.images?.[0] || "https://placehold.co/100x100"}
+                                        src={item.images[0].url || "https://placehold.co/100x100"}
                                         alt={item.name}
                                         className="w-24 h-24 object-cover rounded-lg"
                                     />
