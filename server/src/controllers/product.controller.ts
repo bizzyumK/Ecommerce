@@ -91,24 +91,63 @@ export async function createProduct(req: Request, res: Response) {
     }
 }
 
+type Image = {
+    url: string;
+    publicId: string;
+};
+
 export async function updateProduct(req: Request, res: Response) {
     try {
         const { id } = req.params;
-        const updatedProduct = await Product.findByIdAndUpdate(
-            id,
-            req.body,
-            { new: true } // return updated data
-        );
-        if (!updatedProduct) {
+        const product = await Product.findById(id);
+        if (!product) {
             return res.status(404).json({
                 message: "Product not found"
             });
         }
 
+        const { name, price, description, sizes, stock, category } = req.body;
+
+        let updatedImages: Image[] = product.images as Image[];
+
+        // if new images uploaded -> replace old ones
+        const files = req.files as Express.Multer.File[] | undefined;
+
+        if (files && files.length > 0) {
+            // delete old images from cloudinary
+            const imagesToDelete = product.images.map((img) => ({
+                url: img.url!,
+                publicId: img.publicId!
+            }));
+
+            await deleteCloudinaryImages(imagesToDelete);
+
+            // add new images
+            updatedImages = files.map((file) => ({
+                url: file.path,
+                publicId: file.filename
+            }));
+        }
+
+        const updatedProduct = await Product.findByIdAndUpdate(
+            id,
+            {
+                name,
+                price,
+                description,
+                sizes,
+                stock,
+                category,
+                images: updatedImages
+            },
+            { new: true }
+        );
+
         return res.status(200).json({
             message: "Product updated successfully",
             data: updatedProduct
         });
+
     } catch (err) {
         return res.status(500).json({
             message: "Invalid ID or server error"
