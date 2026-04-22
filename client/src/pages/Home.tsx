@@ -42,10 +42,12 @@ export default function Home() {
                                 Elevate your everyday wardrobe with our premium selection of clothing designed for modern living.
                             </p>
                             <div className="flex flex-wrap gap-4 pt-4">
-                                <button className="bg-teal-600 text-white px-8 py-3 cursor-pointer rounded-lg font-semibold hover:bg-teal-700 transition-all transform hover:scale-105 shadow-lg">
+                                <button className="bg-teal-600 text-white px-8 py-3 cursor-pointer rounded-lg font-semibold hover:bg-teal-700 transition-all transform hover:scale-105 shadow-lg"
+                                    onClick={() => navigate("/products")}>
                                     Shop Now
                                 </button>
-                                <button className="border-2 border-gray-900 text-gray-900 cursor-pointer px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 hover:text-white transition-all transform hover:scale-105">
+                                <button className="border-2 border-gray-900 text-gray-900 cursor-pointer px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 hover:text-white transition-all transform hover:scale-105"
+                                    onClick={() => navigate("/products")}>
                                     View Collections
                                 </button>
                             </div>
@@ -59,7 +61,7 @@ export default function Home() {
 
                                 <div className="relative rounded-2xl shadow-2xl overflow-hidden">
                                     <img
-                                        src="https://placehold.co/600x500/4F46E5/FFFFFF/png?text=Fashion+Illustration"
+                                        src="/banner_logo.svg"
                                         alt="Hero Fashion"
                                         className="w-full h-auto object-cover"
                                     />
