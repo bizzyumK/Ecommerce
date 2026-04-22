@@ -61,13 +61,13 @@ export default function ProductDetail() {
 	const maxStock = product.stock || 10;
 
 	return (
-		<div className="max-w-6xl mx-auto mt-10 px-4 py-8">
+		<div className="max-w-6xl mx-auto  px-4 py-8 h-[calc(100vh-64px - 289px)] flex justify-center items-center">
 			<div className="grid md:grid-cols-2 gap-8">
-				<div className="bg-gray-100 rounded-lg overflow-hidden">
+				<div className="bg-gray-100 rounded-lg overflow-hidden aspect-square">
 					<img
-						src={product.images?.[0] || "https://placehold.co/600x400"}
+						src={product.images[0]?.url || "https://placehold.co/600x400"}
 						alt={product.name}
-						className="w-full h-96 object-cover"
+						className="w-full h-full object-cover"
 					/>
 				</div>
 				<div className="flex flex-col justify-between">
@@ -97,7 +97,7 @@ export default function ProductDetail() {
 											key={size}
 											onClick={() => setSelectedSize(size)}
 											className={`
-                                                px-4 py-2 border-2 rounded-lg font-medium transition
+                                                px-4 py-2 cursor-pointer border-2 rounded-lg font-medium transition
                                                 ${selectedSize === size
 													? 'bg-teal-600 border-teal-600 text-white'
 													: 'border-gray-300 hover:border-teal-600 text-gray-700'
@@ -118,13 +118,13 @@ export default function ProductDetail() {
 							<button
 								onClick={decrementQuantity}
 								disabled={quantity <= 1 || !inStock}
-								className="w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
 							> - </button>
 							<span className="w-8 text-center">{quantity}</span>
 							<button
 								onClick={incrementQuantity}
 								disabled={quantity >= maxStock || !inStock}
-								className="w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+								className="w-8 h-8 border rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
 							> + </button>
 							<span className="text-sm text-gray-500">
 								Max {maxStock}
@@ -133,7 +133,7 @@ export default function ProductDetail() {
 						<button
 							onClick={handleAddToCart}
 							disabled={!inStock || (product.sizes?.length > 0 && !selectedSize)}
-							className="w-full bg-teal-600 text-white py-2 rounded-lg font-semibold hover:bg-teal-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+							className="w-full bg-teal-600 text-white py-2 rounded-lg font-semibold hover:bg-teal-700 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
 						>
 							Add to Cart
 						</button>

@@ -75,7 +75,7 @@ export default function AdminProducts() {
                             <tr key={product._id} className="border-t hover:bg-gray-50">
                                 <td className="p-3">
                                     <img
-                                        src={product.images?.[0] || "https://placehold.co/60x60"}
+                                        src={product.images[0]?.url}
                                         alt={product.name}
                                         className="w-12 h-12 object-cover rounded"
                                     />

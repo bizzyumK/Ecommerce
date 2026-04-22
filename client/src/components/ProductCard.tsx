@@ -21,13 +21,13 @@ export default function ProductCard({ product, addToCart }: Props) {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div
-                className="relative overflow-hidden bg-gray-100 cursor-pointer shrink-0"
+                className="relative overflow-hidden bg-gray-100 cursor-pointer shrink-0 rounded-t-lg"
                 onClick={handleProductClick}
             >
                 <img
-                    src={product.images?.[0]}
+                    src={product.images[0]?.url}
                     alt={product.name}
-                    className="h-64 w-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 />
             </div>
             <div className="p-4 flex flex-col grow">
