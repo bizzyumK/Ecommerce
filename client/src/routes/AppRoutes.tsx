@@ -29,13 +29,10 @@ export default function AppRoutes() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/cart" element={<Cart />} />
 
             {/*User routes */}
-            <Route
-                path="/cart"
-                element={<PrivateRoute><Cart /></PrivateRoute>}
-            />
-            <Route
+            < Route
                 path="/checkout"
                 element={<PrivateRoute><Checkout /></PrivateRoute>}
             />
