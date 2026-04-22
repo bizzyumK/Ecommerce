@@ -38,6 +38,11 @@ export async function getAllProduct(req: Request, res: Response) {
 }
 
 export async function createProduct(req: Request, res: Response) {
+    //Note: This is made to handle single data at a time
+    // to achieve bulk of data:
+    // create a empty array []
+    // then store bulk of data from req.body to it then
+    // iterate over that array and store it in db
     try {
         const { name, price, description, sizes, stock, category } = req.body;
 
