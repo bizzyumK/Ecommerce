@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Product } from "../model/product.model";
+import { deleteCloudinaryImages } from "../services/deleteCloudinary";
 
 export async function getProductById(req: Request, res: Response) {
     try {
@@ -46,6 +47,7 @@ export async function createProduct(req: Request, res: Response) {
                 status: false
             });
         }
+        //To convert from string to array Eg-> user passes the data like xl, xxl === "xl, xxl":string(must avoid)
         const parseSizeToArray = typeof sizes === "string"
             ? sizes.split(",").map(s => s.trim())  //remove space such as [x, xl] => [x,xl]
             : sizes.map((s: string) => s.trim());
@@ -57,10 +59,10 @@ export async function createProduct(req: Request, res: Response) {
             });
         }
 
+        //get image urls and publicId(filename) from req.file(multer create it automatically)
         const imageUrls = files.map((file) => {
-            return file.path
-        });//get image urls from req.file(multer create it automatically)
-
+            return { url: file.path, publicId: file.filename }
+        });
 
         const productDetail = await Product.create({
             name,
@@ -112,12 +114,23 @@ export async function updateProduct(req: Request, res: Response) {
 export async function deleteProduct(req: Request, res: Response) {
     try {
         const { id } = req.params;
-        const deletedProduct = await Product.findByIdAndDelete(id);
-        if (!deletedProduct) {
+        const product = await Product.findById(id);
+        if (!product) {
             return res.status(404).json({
                 message: "Product not found"
             });
         }
+
+        const images = product.images.map((img) => {
+            //This tells typscript url, publicId is not undefined
+            return {
+                url: img.url!,
+                publicId: img.publicId!
+            }
+        });
+
+        await deleteCloudinaryImages(images);
+        await Product.findByIdAndDelete(id);
 
         return res.status(200).json({
             message: "Product deleted successfully"
