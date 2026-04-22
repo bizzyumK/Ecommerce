@@ -1,38 +1,56 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../api/product.api";
 
 export default function AddProduct() {
     const navigate = useNavigate();
+    const [images, setImages] = useState<File[]>([]);
     const [loading, setLoading] = useState(false);
+
     const [form, setForm] = useState({
         name: "",
         price: "",
         description: "",
         category: "",
         stock: "",
-        images: "",
         sizes: ""
     });
 
-    const handleChange = (e: any) => {
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setImages(Array.from(e.target.files));
+        }
+    };
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e: any) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const payload = {
-                ...form,
-                price: Number(form.price),
-                stock: Number(form.stock),
-                images: form.images.split(",").map((img) => img.trim()),
-                sizes: form.sizes.split(",").map((s) => s.trim())
-            };
+            const formData = new FormData();
 
-            await createProduct(payload);
+            formData.append("name", form.name);
+            formData.append("price", String(form.price));
+            formData.append("description", form.description);
+            formData.append("category", form.category);
+            formData.append("stock", String(form.stock));
+
+            form.sizes.split(",").forEach((s) => {
+                formData.append("sizes", s.trim());
+            });
+
+            images.forEach((img) => {
+                formData.append("images", img);
+            });
+
+            await createProduct(formData);
+
             navigate("/admin/products");
         } catch (err) {
             console.log(err);
@@ -55,7 +73,6 @@ export default function AddProduct() {
                     Add Product
                 </h1>
             </div>
-
             <div className="bg-white rounded-lg shadow p-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input
@@ -92,16 +109,15 @@ export default function AddProduct() {
                             name="category"
                             value={form.category}
                             onChange={handleChange}
-                            placeholder="Category"
+                            placeholder="Category(men, women, kids, footwear)"
                             required
                             className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
                         />
-
                         <input
                             name="sizes"
                             value={form.sizes}
                             onChange={handleChange}
-                            placeholder="Sizes (S, M, L)"
+                            placeholder="Sizes [S, M, L]"
                             className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
                         />
                     </div>
@@ -115,10 +131,9 @@ export default function AddProduct() {
                         className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none resize-none"
                     />
                     <input
-                        name="images"
-                        value={form.images}
-                        onChange={handleChange}
-                        placeholder="Image URLs (comma separated)"
+                        type="file"
+                        multiple
+                        onChange={handleImageChange}
                         className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
                     />
                     <div className="flex gap-3 pt-4">
@@ -129,6 +144,7 @@ export default function AddProduct() {
                         >
                             Cancel
                         </button>
+
                         <button
                             type="submit"
                             disabled={loading}
@@ -137,6 +153,7 @@ export default function AddProduct() {
                             {loading ? "Creating..." : "Create Product"}
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
