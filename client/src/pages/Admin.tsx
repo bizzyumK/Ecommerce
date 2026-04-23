@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProducts } from "../api/product.api";
-import { getMyOrders } from "../api/order.api";
+import { getAllOrders } from "../api/order.api";
 
 const Admin = () => {
     const [products, setProducts] = useState<any[]>([]);
@@ -22,7 +22,7 @@ const Admin = () => {
 
     const fetchOrders = async () => {
         try {
-            const res = await getMyOrders();
+            const res = await getAllOrders();
             setOrders(res.data.data || []);
         } catch (err) {
             console.log(err);
