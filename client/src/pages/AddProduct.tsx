@@ -62,28 +62,37 @@ export default function AddProduct() {
 
     return (
         <div>
-            <div className="flex items-center gap-4 mb-6">
+
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
+
                 <button
                     onClick={() => navigate("/admin/products")}
-                    className="text-gray-500 hover:text-gray-700 cursor-pointer"
+                    className="text-sm sm:text-base text-gray-500 hover:text-gray-700 cursor-pointer w-fit"
                 >
                     ← Back
                 </button>
-                <h1 className="text-2xl font-bold text-gray-800">
+
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
                     Add Product
                 </h1>
+
             </div>
-            <div className="bg-white rounded-lg shadow p-6">
+
+            <div className="bg-white rounded-xl shadow p-4 sm:p-6">
+
                 <form onSubmit={handleSubmit} className="space-y-4">
+
                     <input
                         name="name"
                         value={form.name}
                         onChange={handleChange}
                         placeholder="Product Name"
                         required
-                        className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm sm:text-base focus:border-teal-500 focus:outline-none"
                     />
-                    <div className="grid grid-cols-2 gap-4">
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                         <input
                             name="price"
                             type="number"
@@ -91,7 +100,7 @@ export default function AddProduct() {
                             onChange={handleChange}
                             placeholder="Price"
                             required
-                            className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm sm:text-base focus:border-teal-500 focus:outline-none"
                         />
 
                         <input
@@ -101,26 +110,32 @@ export default function AddProduct() {
                             onChange={handleChange}
                             placeholder="Stock"
                             required
-                            className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm sm:text-base focus:border-teal-500 focus:outline-none"
                         />
+
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                         <input
                             name="category"
                             value={form.category}
                             onChange={handleChange}
-                            placeholder="Category(men, women, kids, footwear)"
+                            placeholder="Category (men, women, kids)"
                             required
-                            className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm sm:text-base focus:border-teal-500 focus:outline-none"
                         />
+
                         <input
                             name="sizes"
                             value={form.sizes}
                             onChange={handleChange}
                             placeholder="Sizes [S, M, L]"
-                            className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
+                            className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm sm:text-base focus:border-teal-500 focus:outline-none"
                         />
+
                     </div>
+
                     <textarea
                         name="description"
                         value={form.description}
@@ -128,19 +143,22 @@ export default function AddProduct() {
                         placeholder="Description"
                         rows={4}
                         required
-                        className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none resize-none"
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm sm:text-base focus:border-teal-500 focus:outline-none resize-none"
                     />
+
                     <input
                         type="file"
                         multiple
                         onChange={handleImageChange}
-                        className="w-full border border-gray-300 rounded-lg p-2 focus:border-teal-500 focus:outline-none"
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm sm:text-base focus:border-teal-500 focus:outline-none"
                     />
-                    <div className="flex gap-3 pt-4">
+
+                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+
                         <button
                             type="button"
                             onClick={() => navigate("/admin/products")}
-                            className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition cursor-pointer"
+                            className="w-full sm:flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition cursor-pointer"
                         >
                             Cancel
                         </button>
@@ -148,14 +166,17 @@ export default function AddProduct() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="flex-1 bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-800 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                            className="w-full sm:flex-1 bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-800 transition disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                         >
                             {loading ? "Creating..." : "Create Product"}
                         </button>
+
                     </div>
 
                 </form>
+
             </div>
+
         </div>
     );
 }
