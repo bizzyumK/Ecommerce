@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -8,7 +7,6 @@ type Props = {
 
 export default function ProductCard({ product, addToCart }: Props) {
     const navigate = useNavigate();
-    const [isHovered, setIsHovered] = useState(false);
 
     const handleProductClick = () => {
         navigate(`/product/${product._id}`);
