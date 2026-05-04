@@ -11,6 +11,9 @@ It provides a complete solution for showcasing products, managing orders, and ha
 ### Home Page
 ![Home](./assets/HomePage.png)
 
+### Product Page
+![Product](./assets/ProductPage.png)
+
 ### Cart Page
 ![Cart](./assets/CartPage.png)
 
@@ -18,7 +21,7 @@ It provides a complete solution for showcasing products, managing orders, and ha
 ![Admin](./assets/AdminPage.png)
 
 ### Admin Product Dashboard
-![Admin](./assets/AdminProductPage.png)
+![AdminProduct](./assets/AdminProductPage.png)
 
 ---
 
