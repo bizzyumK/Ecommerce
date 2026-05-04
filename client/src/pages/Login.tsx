@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/auth.api";
 import { AuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -90,12 +91,12 @@ const Login = () => {
 
                         <span className="text-xs sm:text-sm text-gray-500">
                             Don’t have an account?{" "}
-                            <a
-                                href="/signup"
+                            <Link
+                                to="/signup"
                                 className="text-teal-500 hover:underline font-medium"
                             >
                                 Create account
-                            </a>
+                            </Link>
                         </span>
 
                     </div>
